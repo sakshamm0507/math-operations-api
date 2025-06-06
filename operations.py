@@ -19,10 +19,13 @@ tools = [
 ]
 
 # Configure Gemini client
-# Replace with your API key or use environment variables in production
+# Get API key from environment variable
 import os
-# Get API key from environment variable or use a default for development
-api_key = os.environ.get("GEMINI_API_KEY", "your-api-key-here")
+api_key = os.environ.get("GEMINI_API_KEY")
+if not api_key:
+    print("Error: GEMINI_API_KEY environment variable not set.")
+    print("Please set it with: $env:GEMINI_API_KEY='your-api-key'")
+    exit(1)
 client = genai.Client(api_key=api_key)
 config = types.GenerateContentConfig(tools=tools)
 
